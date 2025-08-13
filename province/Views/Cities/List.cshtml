@@ -1,0 +1,41 @@
+﻿@model List<province.Models.Entities.City>
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>لیست شهرها</title>
+    
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+
+  
+        <h2>لیست شهرها</h2>
+        <a href="/Cities/Create">افزودن شهر جدید</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>نام شهر</th>
+                    <th>استان</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.province?.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+   
+</body>
+</html>

@@ -1,0 +1,49 @@
+﻿@model List<province.Models.Entities.City>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+    <div>
+        <label>استان:</label>
+        <select id="provinceDropdown" class="form-control">
+            <option value="">انتخاب استان</option>
+            @foreach (var province in ViewBag.Provinces)
+            {
+                <option value="@province.Id">@province.Name</option>
+            }
+        </select>
+
+        <label>شهر:</label>
+        <select id="cityDropdown" class="form-control">
+            <option value="">ابتدا استان را انتخاب کنید</option>
+        </select>
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $("#provinceDropdown").change(function () {
+            var provinceId = $(this).val();
+            $("#cityDropdown").empty().append('<option value="">در حال بارگذاری...</option>');
+
+            if (provinceId) {
+                $.get("/Cities/GetCitiesByProvinces", { provinceId: provinceId }, function (data) {
+                    $("#cityDropdown").empty().append('<option value="">انتخاب شهر</option>');
+                    $.each(data, function (i, city) {
+                        $("#cityDropdown").append('<option value="' + city.id + '">' + city.name + '</option>');
+                    });
+                });
+            } else {
+                $("#cityDropdown").empty().append('<option value="">ابتدا استان را انتخاب کنید</option>');
+            }
+        });
+    </script>
+</body>
+</html>
